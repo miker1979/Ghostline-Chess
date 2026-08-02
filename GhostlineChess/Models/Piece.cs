@@ -12,6 +12,12 @@ namespace GhostlineChess.Models
         public PieceColor Color { get; }
 
         /// <summary>
+        /// Tracks whether this piece has moved during the current game.
+        /// This will be used for castling and pawn movement rules.
+        /// </summary>
+        public bool HasMoved { get; set; }
+
+        /// <summary>
         /// Returns true when this object represents an empty square.
         /// </summary>
         public bool IsEmpty
@@ -26,6 +32,7 @@ namespace GhostlineChess.Models
         {
             Type = type;
             Color = color;
+            HasMoved = false;
         }
 
         /// <summary>

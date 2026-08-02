@@ -1,18 +1,44 @@
-## Download Ghostline Chess for Windows
+# Ghostline Chess
 
-[Download Ghostline Chess v1.0.0 for Windows](https://github.com/miker1979/Ghostline-Chess/releases/download/v1.0.0/GhostlineChess-v1.0.0-win-x64.zip)
+**Every move awakens something.**
 
-### Installation Instructions
+Ghostline Chess is a horror-themed Windows chess game built with C# and Windows Forms. The Pale Court and Shadow Court fight across a gothic board while the Ghostline Tome records each move and the Graveyard displays captured pieces.
 
-1. Download `GhostlineChess-v1.0.0-win-x64.zip`.
-2. Open your Downloads folder.
-3. Right-click the ZIP file and select **Extract All**.
-4. Open the extracted folder.
-5. Double-click `GhostlineChess.exe`.
-6. No Visual Studio or separate .NET installation is required.
+![Ghostline Chess gameplay](docs/screenshots/ghostline-chess-gameplay.png)
 
-### Windows Security Notice
+## Current development build
 
-Ghostline Chess is currently an unsigned independent application. Windows
-SmartScreen may display an unrecognized-app warning. Only run the application
-when it was downloaded from the official Ghostline Chess GitHub repository.
+The latest source includes:
+
+- Complete legal movement and captures
+- Check and checkmate detection with a crimson king warning
+- Kingside and queenside castling, including castling safety validation
+- En passant and all four promotion choices
+- Algebraic move history in the Ghostline Tome
+- Captured-piece tracking in the Graveyard
+- FEN import, export, validation, and move counters
+- Stalemate and insufficient-material draws
+- Threefold-repetition and fifty-move-rule draws
+- Custom Pale Court and Shadow Court artwork
+
+## Requirements
+
+- Windows 10 or Windows 11
+- Visual Studio 2026 with the **.NET desktop development** workload, or the .NET 10 SDK
+
+## Build and run
+
+```powershell
+dotnet build
+dotnet run --project GhostlineChess/GhostlineChess.csproj
+```
+
+## Windows release
+
+The existing packaged Windows release remains available from the [Releases page](https://github.com/miker1979/Ghostline-Chess/releases). The source on this branch is newer than the current packaged release and will become the basis for the next downloadable build.
+
+## Project status
+
+The core chess-engine validation pass is complete. The next milestone is audiovisual polish: sound effects, spectral capture animation, and additional ambient effects.
+
+Built by Michael Robinson for Haunted Echoes Studios.

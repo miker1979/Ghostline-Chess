@@ -8,6 +8,9 @@
         InProgress,
         WhiteWon,
         BlackWon,
-        Draw
+        Draw,
+        InsufficientMaterial,
+        ThreefoldRepetition,
+        FiftyMoveRule
     }
 }

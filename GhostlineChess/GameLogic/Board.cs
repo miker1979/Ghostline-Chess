@@ -25,13 +25,15 @@ namespace GhostlineChess.GameLogic
             {
                 for (int column = 0; column < 8; column++)
                 {
-                    Spots[row, column] = new Spot(row, column);
+                    Spots[row, column] =
+                        new Spot(row, column);
                 }
             }
         }
 
         /// <summary>
-        /// Places all chess pieces in their starting positions.
+        /// Places all chess pieces in their standard
+        /// starting positions.
         /// </summary>
         private void SetupPieces()
         {
@@ -49,19 +51,29 @@ namespace GhostlineChess.GameLogic
 
             for (int column = 0; column < 8; column++)
             {
-                // Black pieces.
+                // Black back rank.
                 Spots[0, column].Piece =
-                    new Piece(backRank[column], PieceColor.Black);
+                    new Piece(
+                        backRank[column],
+                        PieceColor.Black);
 
+                // Black pawns.
                 Spots[1, column].Piece =
-                    new Piece(PieceType.Pawn, PieceColor.Black);
+                    new Piece(
+                        PieceType.Pawn,
+                        PieceColor.Black);
 
-                // White pieces.
+                // White pawns.
                 Spots[6, column].Piece =
-                    new Piece(PieceType.Pawn, PieceColor.White);
+                    new Piece(
+                        PieceType.Pawn,
+                        PieceColor.White);
 
+                // White back rank.
                 Spots[7, column].Piece =
-                    new Piece(backRank[column], PieceColor.White);
+                    new Piece(
+                        backRank[column],
+                        PieceColor.White);
             }
         }
     }
