@@ -31,22 +31,22 @@ namespace GhostlineChess
         private ChessGame chessGame =
             new ChessGame();
 
-        // Hallowed Saints colors.
-        private readonly Color paleCourtFill =
+        // Hallowed Saints colors: ivory, cathedral gold, and sacred blue.
+        private readonly Color hallowedSaintsFill =
             Color.FromArgb(231, 215, 181);
 
-        private readonly Color paleCourtCrimsonGlow =
-            Color.FromArgb(139, 0, 0);
+        private readonly Color hallowedSaintsBlueGlow =
+            Color.FromArgb(52, 102, 190);
 
-        private readonly Color paleCourtAmberOutline =
+        private readonly Color hallowedSaintsGoldOutline =
             Color.FromArgb(205, 150, 55);
 
-        // Damned Souls colors.
-        private readonly Color shadowCourtFill =
+        // The Damned colors: blackened metal and infernal crimson.
+        private readonly Color damnedFill =
             Color.FromArgb(18, 17, 20);
 
-        private readonly Color shadowCourtSpectralGlow =
-            Color.FromArgb(137, 168, 178);
+        private readonly Color damnedCrimsonGlow =
+            Color.FromArgb(190, 28, 48);
 
         // Cathedral-stone details.
         private readonly Color cathedralMortar =
@@ -403,13 +403,13 @@ namespace GhostlineChess
                     if (piece.Color ==
                         PieceColor.White)
                     {
-                        DrawPaleCourtPiece(
+                        DrawHallowedSaintsPiece(
                             e.Graphics,
                             piecePath);
                     }
                     else
                     {
-                        DrawShadowCourtPiece(
+                        DrawDamnedPiece(
                             e.Graphics,
                             piecePath);
                     }
@@ -671,7 +671,7 @@ namespace GhostlineChess
                 // A controlled spectral aura.
                 // This is narrower than the previous
                 // version so it does not wash out
-                // the amber Hallowed Saints pieces.
+                // the ivory-and-gold Hallowed Saints pieces.
                 using Pen outerAura =
                     new Pen(
                         Color.FromArgb(
@@ -1073,17 +1073,17 @@ namespace GhostlineChess
 
         /// <summary>
         /// Draws a Hallowed Saints piece using an
-        /// ivory body, crimson glow, and amber edge.
+        /// ivory body, sacred blue glow, and gold edge.
         /// </summary>
-        private void DrawPaleCourtPiece(
+        private void DrawHallowedSaintsPiece(
             Graphics graphics,
             GraphicsPath piecePath)
         {
-            using Pen crimsonGlowPen =
+            using Pen blueGlowPen =
                 new Pen(
                     Color.FromArgb(
                         95,
-                        paleCourtCrimsonGlow),
+                        hallowedSaintsBlueGlow),
                     6.5F)
                 {
                     LineJoin =
@@ -1091,14 +1091,14 @@ namespace GhostlineChess
                 };
 
             graphics.DrawPath(
-                crimsonGlowPen,
+                blueGlowPen,
                 piecePath);
 
-            using Pen amberGlowPen =
+            using Pen goldGlowPen =
                 new Pen(
                     Color.FromArgb(
                         145,
-                        paleCourtAmberOutline),
+                        hallowedSaintsGoldOutline),
                     4F)
                 {
                     LineJoin =
@@ -1106,12 +1106,12 @@ namespace GhostlineChess
                 };
 
             graphics.DrawPath(
-                amberGlowPen,
+                goldGlowPen,
                 piecePath);
 
             using SolidBrush fillBrush =
                 new SolidBrush(
-                    paleCourtFill);
+                    hallowedSaintsFill);
 
             graphics.FillPath(
                 fillBrush,
@@ -1119,7 +1119,7 @@ namespace GhostlineChess
 
             using Pen outlinePen =
                 new Pen(
-                    paleCourtAmberOutline,
+                    hallowedSaintsGoldOutline,
                     2.2F)
                 {
                     LineJoin =
@@ -1132,10 +1132,10 @@ namespace GhostlineChess
         }
 
         /// <summary>
-        /// Draws a Damned Souls piece using a
-        /// charcoal body and spectral blue glow.
+        /// Draws a Damned piece using a
+        /// charcoal body and infernal crimson glow.
         /// </summary>
-        private void DrawShadowCourtPiece(
+        private void DrawDamnedPiece(
             Graphics graphics,
             GraphicsPath piecePath)
         {
@@ -1143,7 +1143,7 @@ namespace GhostlineChess
                 new Pen(
                     Color.FromArgb(
                         90,
-                        shadowCourtSpectralGlow),
+                        damnedCrimsonGlow),
                     5F)
                 {
                     LineJoin =
@@ -1156,7 +1156,7 @@ namespace GhostlineChess
 
             using SolidBrush fillBrush =
                 new SolidBrush(
-                    shadowCourtFill);
+                    damnedFill);
 
             graphics.FillPath(
                 fillBrush,
@@ -1164,7 +1164,7 @@ namespace GhostlineChess
 
             using Pen outlinePen =
                 new Pen(
-                    shadowCourtSpectralGlow,
+                    damnedCrimsonGlow,
                     2.3F)
                 {
                     LineJoin =
@@ -1542,7 +1542,7 @@ namespace GhostlineChess
                 case GameResult.WhiteWon:
                     statusLabel.Text =
                         "Checkmate — The Damned throne has fallen. " +
-                        "The Hallowed Saints win!";
+                        "The Hallowed Saints prevail!";
 
                     statusLabel.ForeColor =
                         gothicCaptureSquare;
@@ -1550,8 +1550,8 @@ namespace GhostlineChess
 
                 case GameResult.BlackWon:
                     statusLabel.Text =
-                        "Checkmate — The Hallowed throne has fallen. " +
-                        "The Damned Souls win!";
+                        "Checkmate — The Hallowed Saints' throne has fallen. " +
+                        "The Damned prevail!";
 
                     statusLabel.ForeColor =
                         gothicCaptureSquare;
@@ -1559,7 +1559,7 @@ namespace GhostlineChess
 
                 case GameResult.Draw:
                     statusLabel.Text =
-                        "Stalemate — Both courts are trapped " +
+                        "Stalemate — Both factions are trapped " +
                         "within the darkness.";
 
                     statusLabel.ForeColor =
@@ -1568,7 +1568,7 @@ namespace GhostlineChess
 
                 case GameResult.InsufficientMaterial:
                     statusLabel.Text =
-                        "Draw — Neither court has enough power " +
+                        "Draw — Neither faction has enough power " +
                         "remaining to deliver checkmate.";
 
                     statusLabel.ForeColor =
@@ -1609,11 +1609,11 @@ namespace GhostlineChess
                         statusLabel.ForeColor =
                             gothicCaptureSquare;
 
-                        string checkedCourt =
+                        string checkedKingName =
                             chessGame.Turn ==
                                 PieceColor.White
-                                ? "Hallowed Saints"
-                                : "Damned Souls";
+                                ? "The Hallowed Saints' King"
+                                : "The Damned King";
 
                         string factionTurn =
                             GetFactionName(
@@ -1621,7 +1621,7 @@ namespace GhostlineChess
 
                         statusLabel.Text =
                             $"{factionTurn} to move — " +
-                            $"The {checkedCourt} King is in check.";
+                            $"{checkedKingName} is in check.";
                     }
                     else
                     {
@@ -1632,7 +1632,7 @@ namespace GhostlineChess
                             chessGame.Turn ==
                                 PieceColor.White
                                 ? "The Hallowed Saints awaken."
-                                : "The Damned Souls advance.";
+                                : "The Damned advance.";
 
                         statusLabel.Text =
                             $"{GetFactionName(chessGame.Turn)} to move — " +
@@ -1658,8 +1658,8 @@ namespace GhostlineChess
             PieceColor color)
         {
             return color == PieceColor.White
-                ? "Hallowed Saints"
-                : "Damned Souls";
+                ? "The Hallowed Saints"
+                : "The Damned";
         }
 
         /// <summary>
@@ -1680,7 +1680,7 @@ namespace GhostlineChess
             }
 
             string checkSuffix =
-                $"{checkedColor} is in check.";
+                $"{GetFactionName(checkedColor)} are in check.";
 
             string trimmedMessage =
                 message.Trim();

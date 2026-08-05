@@ -1,0 +1,22 @@
+# Keep Windows project files comfortable in Visual Studio while
+# normalizing repository metadata and documentation for GitHub.
+*.cs text eol=crlf
+*.csproj text eol=crlf
+*.slnx text eol=crlf
+*.resx text eol=crlf
+*.config text eol=crlf
+
+*.md text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.json text eol=lf
+*.txt text eol=lf
+.gitignore text eol=lf
+.gitattributes text eol=lf
+
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.wav binary
+*.mp3 binary
+*.zip binary

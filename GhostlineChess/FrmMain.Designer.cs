@@ -68,7 +68,7 @@
             statusLabel.Name = "statusLabel";
             statusLabel.Size = new Size(123, 28);
             statusLabel.TabIndex = 1;
-            statusLabel.Text = "Turn: White";
+            statusLabel.Text = "The Hallowed Saints to move";
             // 
             // newGameButton
             // 

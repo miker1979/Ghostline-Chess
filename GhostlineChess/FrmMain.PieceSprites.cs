@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -94,73 +94,73 @@ namespace GhostlineChess
                 PieceColor.White,
                 PieceType.Pawn,
                 piecesDirectory,
-                "pale_pawn.png");
+                "pawn_white.png");
 
             AddPieceSprite(
                 PieceColor.White,
                 PieceType.Rook,
                 piecesDirectory,
-                "pale_rook.png");
+                "rook_white.png");
 
             AddPieceSprite(
                 PieceColor.White,
                 PieceType.Knight,
                 piecesDirectory,
-                "pale_knight.png");
+                "knight_white.png");
 
             AddPieceSprite(
                 PieceColor.White,
                 PieceType.Bishop,
                 piecesDirectory,
-                "pale_bishop.png");
+                "bishop_white.png");
 
             AddPieceSprite(
                 PieceColor.White,
                 PieceType.Queen,
                 piecesDirectory,
-                "pale_queen.png");
+                "queen_white.png");
 
             AddPieceSprite(
                 PieceColor.White,
                 PieceType.King,
                 piecesDirectory,
-                "pale_king.png");
+                "king_white.png");
 
             AddPieceSprite(
                 PieceColor.Black,
                 PieceType.Pawn,
                 piecesDirectory,
-                "shadow_pawn.png");
+                "pawn_black.png");
 
             AddPieceSprite(
                 PieceColor.Black,
                 PieceType.Rook,
                 piecesDirectory,
-                "shadow_rook.png");
+                "rook_black.png");
 
             AddPieceSprite(
                 PieceColor.Black,
                 PieceType.Knight,
                 piecesDirectory,
-                "shadow_knight.png");
+                "knight_black.png");
 
             AddPieceSprite(
                 PieceColor.Black,
                 PieceType.Bishop,
                 piecesDirectory,
-                "shadow_bishop.png");
+                "bishop_black.png");
 
             AddPieceSprite(
                 PieceColor.Black,
                 PieceType.Queen,
                 piecesDirectory,
-                "shadow_queen.png");
+                "queen_black.png");
 
             AddPieceSprite(
                 PieceColor.Black,
                 PieceType.King,
                 piecesDirectory,
-                "shadow_king.png");
+                "king_black.png");
         }
 
         /// <summary>
@@ -810,13 +810,13 @@ namespace GhostlineChess
             if (piece.Color ==
                 PieceColor.White)
             {
-                DrawPaleCourtPiece(
+                DrawHallowedSaintsPiece(
                     graphics,
                     piecePath);
             }
             else
             {
-                DrawShadowCourtPiece(
+                DrawDamnedPiece(
                     graphics,
                     piecePath);
             }

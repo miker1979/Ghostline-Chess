@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Text;
@@ -29,16 +29,16 @@ namespace GhostlineChess
         private readonly Label graveyardTitleLabel =
             new Label();
 
-        private readonly Label paleCasualtiesTitleLabel =
+        private readonly Label hallowedCasualtiesTitleLabel =
             new Label();
 
-        private readonly Label paleCasualtiesIconsLabel =
+        private readonly Label hallowedCasualtiesIconsLabel =
             new Label();
 
-        private readonly Label shadowCasualtiesTitleLabel =
+        private readonly Label damnedCasualtiesTitleLabel =
             new Label();
 
-        private readonly Label shadowCasualtiesIconsLabel =
+        private readonly Label damnedCasualtiesIconsLabel =
             new Label();
 
         // Stores completed moves for the Tome.
@@ -46,14 +46,14 @@ namespace GhostlineChess
             journalEntries =
                 new List<JournalEntry>();
 
-        // White pieces that have been captured.
+        // Hallowed Saints pieces that have been captured.
         private readonly List<PieceType>
-            capturedPalePieces =
+            capturedHallowedPieces =
                 new List<PieceType>();
 
-        // Black pieces that have been captured.
+        // The Damned pieces that have been captured.
         private readonly List<PieceType>
-            capturedShadowPieces =
+            capturedDamnedPieces =
                 new List<PieceType>();
 
         // Promotion moves are recorded after the
@@ -130,7 +130,7 @@ namespace GhostlineChess
 
             // The graveyard controls extend slightly below
             // the board frame. Give the panel enough height
-            // to show the complete Damned Souls tray and its
+            // to show the complete tray for The Damned and its
             // bottom padding without clipping.
             chroniclePanel.Size =
                 new Size(
@@ -290,132 +290,132 @@ namespace GhostlineChess
             graveyardTitleLabel.UseMnemonic =
                 false;
 
-            paleCasualtiesTitleLabel.AutoSize =
+            hallowedCasualtiesTitleLabel.AutoSize =
                 false;
 
-            paleCasualtiesTitleLabel.Location =
+            hallowedCasualtiesTitleLabel.Location =
                 new Point(
                     20,
                     412);
 
-            paleCasualtiesTitleLabel.Size =
+            hallowedCasualtiesTitleLabel.Size =
                 new Size(
                     chroniclePanel.Width - 40,
                     26);
 
-            paleCasualtiesTitleLabel.TextAlign =
+            hallowedCasualtiesTitleLabel.TextAlign =
                 ContentAlignment.MiddleLeft;
 
-            paleCasualtiesTitleLabel.Font =
+            hallowedCasualtiesTitleLabel.Font =
                 new Font(
                     "Georgia",
                     9F,
                     FontStyle.Bold);
 
-            paleCasualtiesTitleLabel.ForeColor =
-                paleCourtAmberOutline;
+            hallowedCasualtiesTitleLabel.ForeColor =
+                hallowedSaintsGoldOutline;
 
-            paleCasualtiesTitleLabel.BackColor =
+            hallowedCasualtiesTitleLabel.BackColor =
                 gothicPanel;
 
-            paleCasualtiesIconsLabel.AutoSize =
+            hallowedCasualtiesIconsLabel.AutoSize =
                 false;
 
-            paleCasualtiesIconsLabel.Location =
+            hallowedCasualtiesIconsLabel.Location =
                 new Point(
                     20,
                     442);
 
-            paleCasualtiesIconsLabel.Size =
+            hallowedCasualtiesIconsLabel.Size =
                 new Size(
                     chroniclePanel.Width - 40,
                     58);
 
-            paleCasualtiesIconsLabel.TextAlign =
+            hallowedCasualtiesIconsLabel.TextAlign =
                 ContentAlignment.MiddleLeft;
 
-            paleCasualtiesIconsLabel.Font =
+            hallowedCasualtiesIconsLabel.Font =
                 new Font(
                     "Segoe UI Symbol",
                     19F,
                     FontStyle.Regular);
 
-            paleCasualtiesIconsLabel.ForeColor =
-                paleCourtAmberOutline;
+            hallowedCasualtiesIconsLabel.ForeColor =
+                hallowedSaintsGoldOutline;
 
-            paleCasualtiesIconsLabel.BackColor =
+            hallowedCasualtiesIconsLabel.BackColor =
                 Color.FromArgb(
                     18,
                     14,
                     18);
 
-            paleCasualtiesIconsLabel.Padding =
+            hallowedCasualtiesIconsLabel.Padding =
                 new Padding(
                     10,
                     0,
                     5,
                     0);
 
-            shadowCasualtiesTitleLabel.AutoSize =
+            damnedCasualtiesTitleLabel.AutoSize =
                 false;
 
-            shadowCasualtiesTitleLabel.Location =
+            damnedCasualtiesTitleLabel.Location =
                 new Point(
                     20,
                     518);
 
-            shadowCasualtiesTitleLabel.Size =
+            damnedCasualtiesTitleLabel.Size =
                 new Size(
                     chroniclePanel.Width - 40,
                     26);
 
-            shadowCasualtiesTitleLabel.TextAlign =
+            damnedCasualtiesTitleLabel.TextAlign =
                 ContentAlignment.MiddleLeft;
 
-            shadowCasualtiesTitleLabel.Font =
+            damnedCasualtiesTitleLabel.Font =
                 new Font(
                     "Georgia",
                     9F,
                     FontStyle.Bold);
 
-            shadowCasualtiesTitleLabel.ForeColor =
-                shadowCourtSpectralGlow;
+            damnedCasualtiesTitleLabel.ForeColor =
+                damnedCrimsonGlow;
 
-            shadowCasualtiesTitleLabel.BackColor =
+            damnedCasualtiesTitleLabel.BackColor =
                 gothicPanel;
 
-            shadowCasualtiesIconsLabel.AutoSize =
+            damnedCasualtiesIconsLabel.AutoSize =
                 false;
 
-            shadowCasualtiesIconsLabel.Location =
+            damnedCasualtiesIconsLabel.Location =
                 new Point(
                     20,
                     548);
 
-            shadowCasualtiesIconsLabel.Size =
+            damnedCasualtiesIconsLabel.Size =
                 new Size(
                     chroniclePanel.Width - 40,
                     58);
 
-            shadowCasualtiesIconsLabel.TextAlign =
+            damnedCasualtiesIconsLabel.TextAlign =
                 ContentAlignment.MiddleLeft;
 
-            shadowCasualtiesIconsLabel.Font =
+            damnedCasualtiesIconsLabel.Font =
                 new Font(
                     "Segoe UI Symbol",
                     19F,
                     FontStyle.Regular);
 
-            shadowCasualtiesIconsLabel.ForeColor =
-                shadowCourtSpectralGlow;
+            damnedCasualtiesIconsLabel.ForeColor =
+                damnedCrimsonGlow;
 
-            shadowCasualtiesIconsLabel.BackColor =
+            damnedCasualtiesIconsLabel.BackColor =
                 Color.FromArgb(
                     18,
                     14,
                     18);
 
-            shadowCasualtiesIconsLabel.Padding =
+            damnedCasualtiesIconsLabel.Padding =
                 new Padding(
                     10,
                     0,
@@ -426,16 +426,16 @@ namespace GhostlineChess
                 graveyardTitleLabel);
 
             chroniclePanel.Controls.Add(
-                paleCasualtiesTitleLabel);
+                hallowedCasualtiesTitleLabel);
 
             chroniclePanel.Controls.Add(
-                paleCasualtiesIconsLabel);
+                hallowedCasualtiesIconsLabel);
 
             chroniclePanel.Controls.Add(
-                shadowCasualtiesTitleLabel);
+                damnedCasualtiesTitleLabel);
 
             chroniclePanel.Controls.Add(
-                shadowCasualtiesIconsLabel);
+                damnedCasualtiesIconsLabel);
         }
 
         /// <summary>
@@ -687,12 +687,12 @@ namespace GhostlineChess
             if (context.CapturedColor.Value ==
                 PieceColor.White)
             {
-                capturedPalePieces.Add(
+                capturedHallowedPieces.Add(
                     context.CapturedType.Value);
             }
             else
             {
-                capturedShadowPieces.Add(
+                capturedDamnedPieces.Add(
                     context.CapturedType.Value);
             }
         }
@@ -866,21 +866,21 @@ namespace GhostlineChess
 
             moveJournalBox.ScrollToCaret();
 
-            paleCasualtiesTitleLabel.Text =
-                $"FALLEN OF THE PALE COURT " +
-                $"({capturedPalePieces.Count})";
+            hallowedCasualtiesTitleLabel.Text =
+                $"FALLEN OF THE HALLOWED SAINTS " +
+                $"({capturedHallowedPieces.Count})";
 
-            paleCasualtiesIconsLabel.Text =
+            hallowedCasualtiesIconsLabel.Text =
                 BuildCapturedPieceText(
-                    capturedPalePieces);
+                    capturedHallowedPieces);
 
-            shadowCasualtiesTitleLabel.Text =
-                $"FALLEN OF THE SHADOW COURT " +
-                $"({capturedShadowPieces.Count})";
+            damnedCasualtiesTitleLabel.Text =
+                $"FALLEN OF THE DAMNED " +
+                $"({capturedDamnedPieces.Count})";
 
-            shadowCasualtiesIconsLabel.Text =
+            damnedCasualtiesIconsLabel.Text =
                 BuildCapturedPieceText(
-                    capturedShadowPieces);
+                    capturedDamnedPieces);
         }
 
         /// <summary>
@@ -992,8 +992,8 @@ namespace GhostlineChess
         private void ResetChronicle()
         {
             journalEntries.Clear();
-            capturedPalePieces.Clear();
-            capturedShadowPieces.Clear();
+            capturedHallowedPieces.Clear();
+            capturedDamnedPieces.Clear();
 
             pendingPromotionJournalMove =
                 null;

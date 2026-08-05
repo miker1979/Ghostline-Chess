@@ -286,7 +286,8 @@ namespace GhostlineChess.GameLogic
 
             if (clickedSpot.Piece.Color != Turn)
             {
-                message = $"It is {Turn}'s turn.";
+                message =
+                    $"It is {GetFactionPossessiveName(Turn)} turn.";
                 return false;
             }
 
@@ -536,13 +537,13 @@ namespace GhostlineChess.GameLogic
 
             if (Result == GameResult.WhiteWon)
             {
-                message = "Checkmate. White wins!";
+                message = "Checkmate. The Hallowed Saints prevail!";
                 return true;
             }
 
             if (Result == GameResult.BlackWon)
             {
-                message = "Checkmate. Black wins!";
+                message = "Checkmate. The Damned prevail!";
                 return true;
             }
 
@@ -668,7 +669,8 @@ namespace GhostlineChess.GameLogic
             if (Result == GameResult.WhiteWon)
             {
                 message =
-                    $"{promotionMessage} Checkmate. White wins!";
+                    $"{promotionMessage} Checkmate. " +
+                    "The Hallowed Saints prevail!";
 
                 return true;
             }
@@ -676,7 +678,8 @@ namespace GhostlineChess.GameLogic
             if (Result == GameResult.BlackWon)
             {
                 message =
-                    $"{promotionMessage} Checkmate. Black wins!";
+                    $"{promotionMessage} Checkmate. " +
+                    "The Damned prevail!";
 
                 return true;
             }
@@ -871,8 +874,34 @@ namespace GhostlineChess.GameLogic
                     Turn))
             {
                 message +=
-                    $" {Turn} is in check.";
+                    $" {GetFactionDisplayName(Turn)} are in check.";
             }
+        }
+
+        /// <summary>
+        /// Returns the player-facing faction name
+        /// for the specified chess color.
+        /// </summary>
+        private static string GetFactionDisplayName(
+            PieceColor color)
+        {
+            return
+                color == PieceColor.White
+                    ? "The Hallowed Saints"
+                    : "The Damned";
+        }
+
+        /// <summary>
+        /// Returns the possessive faction name
+        /// used in turn-status messages.
+        /// </summary>
+        private static string GetFactionPossessiveName(
+            PieceColor color)
+        {
+            return
+                color == PieceColor.White
+                    ? "the Hallowed Saints'"
+                    : "the Damned's";
         }
 
         /// <summary>

@@ -36,7 +36,7 @@ namespace GhostlineChess
             Color.FromArgb(43, 14, 20);
 
         // Deep blood-burgundy selected square.
-        // This allows the amber Hallowed Saints pieces
+        // This allows the ivory-and-gold Hallowed Saints pieces
         // to remain clearly visible.
         private readonly Color gothicSelectedSquare =
             Color.FromArgb(86, 12, 28);

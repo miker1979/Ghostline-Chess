@@ -4,7 +4,7 @@
 
 **Every move awakens something.**
 
-Ghostline Chess is a horror-themed Windows chess game built with C# and Windows Forms. The **Hallowed Saints** and **Damned Souls** fight across a gothic board while the Ghostline Tome records each move and the Graveyard displays captured pieces.
+Ghostline Chess is a horror-themed Windows chess game built with C# and Windows Forms. The **Hallowed Saints** and **The Damned** fight across a gothic board while the Ghostline Tome records each move and the Graveyard displays captured pieces.
 
 ![Ghostline Chess gameplay](docs/screenshots/ghostline-chess-gameplay.png)
 
@@ -21,7 +21,7 @@ The current source contains the completed chess-engine, gothic-interface, and v7
 - FEN import, export, validation, and move counters
 - Stalemate and insufficient-material draws
 - Threefold-repetition and fifty-move-rule draws
-- Custom Hallowed Saints and Damned Souls artwork
+- Custom artwork for the Hallowed Saints and The Damned
 - Continuous gothic background suite
 - Randomized environmental creaks with no immediate repeat
 - Layered playback so ambience continues beneath board effects

@@ -22,21 +22,17 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="Assets\Pieces\pale_bishop.png" />
-    <None Remove="Assets\Pieces\pale_king.png" />
-    <None Remove="Assets\Pieces\pale_knight.png" />
-    <None Remove="Assets\Pieces\pale_pawn.png" />
-    <None Remove="Assets\Pieces\pale_queen.png" />
-    <None Remove="Assets\Pieces\pale_rook.png" />
-    <None Remove="Assets\Pieces\shadow_bishop.png" />
-    <None Remove="Assets\Pieces\shadow_king.png" />
-    <None Remove="Assets\Pieces\shadow_knight.png" />
-    <None Remove="Assets\Pieces\shadow_pawn.png" />
-    <None Remove="Assets\Pieces\shadow_queen.png" />
-    <None Remove="Assets\Pieces\shadow_rook.png" />
     <None Update="Assets\Audio\LICENSE-NOTICE.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+
+  <!-- Copy every current chess-piece PNG without maintaining twelve individual entries. -->
+  <ItemGroup>
+    <None Remove="Assets\Pieces\*.png" />
+    <Content Include="Assets\Pieces\*.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
@@ -47,42 +43,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Audio\Pieces\*.wav">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\Pieces\pale_bishop.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\Pieces\pale_king.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\Pieces\pale_knight.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\Pieces\pale_pawn.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\Pieces\pale_queen.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\Pieces\pale_rook.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\Pieces\shadow_bishop.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\Pieces\shadow_king.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\Pieces\shadow_knight.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\Pieces\shadow_pawn.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\Pieces\shadow_queen.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\Pieces\shadow_rook.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
