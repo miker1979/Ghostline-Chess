@@ -6,6 +6,10 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
+    <Version>1.1.0</Version>
+    <AssemblyVersion>1.1.0.0</AssemblyVersion>
+    <FileVersion>1.1.0.0</FileVersion>
+    <InformationalVersion>1.1.0</InformationalVersion>
   </PropertyGroup>
 
   <!-- Prevent the unused WinForms resource file from producing duplicate build resources. -->
@@ -30,6 +34,9 @@
     <None Remove="Assets\Pieces\shadow_pawn.png" />
     <None Remove="Assets\Pieces\shadow_queen.png" />
     <None Remove="Assets\Pieces\shadow_rook.png" />
+    <None Update="Assets\Audio\LICENSE-NOTICE.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
