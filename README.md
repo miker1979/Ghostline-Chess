@@ -10,7 +10,7 @@ Ghostline Chess is a horror-themed Windows chess game built with C# and Windows 
 
 ## Current GitHub source
 
-The source currently published on `main` contains the completed chess-engine and gothic-interface milestone:
+The current source contains the completed chess-engine, gothic-interface, and v7 layered-audio milestones:
 
 - Complete legal movement and captures
 - Check and checkmate detection with a crimson king warning
@@ -22,8 +22,13 @@ The source currently published on `main` contains the completed chess-engine and
 - Stalemate and insufficient-material draws
 - Threefold-repetition and fifty-move-rule draws
 - Custom Hallowed Saints and Damned Souls artwork
+- Continuous gothic background suite
+- Randomized environmental creaks with no immediate repeat
+- Layered playback so ambience continues beneath board effects
+- Twenty-four faction-and-piece move and capture cues
+- Deferred audio-device startup to reduce launch-freeze risk
 
-The newer v7 development build adds layered ambience, randomized environmental creaks, and faction-and-piece move and capture cues. That audio build remains under sound-by-sound review and should be synchronized from the verified local working copy before it is presented here as downloadable source.
+The v7 audio routing is playable and stable. Individual sounds remain subject to track-by-track curation as development continues.
 
 ## Requirements
 
@@ -42,10 +47,10 @@ Every push and pull request is also compiled on a Windows GitHub Actions runner 
 
 ## Windows release
 
-The existing packaged Windows release remains available from the [Releases page](https://github.com/miker1979/Ghostline-Chess/releases). The public download is still the early v1.0.0 prerelease while the newer engine and audio work is validated and prepared for the next packaged build.
+The existing packaged Windows release remains available from the [Releases page](https://github.com/miker1979/Ghostline-Chess/releases). The public download is still the early v1.0.0 prerelease while the newer engine and audio work is prepared for the next packaged build.
 
 ## Project status
 
-The core chess-engine validation pass is complete. Current development focuses on audio curation, stronger visual feedback, release packaging, and keeping the public repository synchronized with verified working builds.
+The core chess-engine and first layered-audio passes are complete. Current development focuses on sound-by-sound curation, stronger visual feedback, release packaging, and future single-player features.
 
 Built by Michael Robinson for Haunted Echoes Studios.
