@@ -47,7 +47,9 @@ Every push and pull request is also compiled on a Windows GitHub Actions runner 
 
 ## Windows release
 
-The existing packaged Windows release remains available from the [Releases page](https://github.com/miker1979/Ghostline-Chess/releases). The public download is still the early v1.0.0 prerelease while the newer engine and audio work is prepared for the next packaged build.
+**Ghostline Chess v1.1.0 — Audio Milestone** is the current packaged Windows release. It is published as a self-contained Windows x64 ZIP, so players do not need Visual Studio or a separate .NET installation.
+
+Download it from the [Releases page](https://github.com/miker1979/Ghostline-Chess/releases/tag/v1.1.0).
 
 ## Project status
 
