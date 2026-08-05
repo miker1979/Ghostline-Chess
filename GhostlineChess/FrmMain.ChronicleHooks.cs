@@ -35,6 +35,7 @@ namespace GhostlineChess
 
             BuildChroniclePanel();
             ConnectChronicleEvents();
+            InitializeAudioExperience();
         }
 
         /// <summary>
@@ -165,6 +166,10 @@ namespace GhostlineChess
                     completedMove);
 
             AddJournalEntry(
+                completedMove,
+                promotionType);
+
+            PlayCompletedMoveAudio(
                 completedMove,
                 promotionType);
 

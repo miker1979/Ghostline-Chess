@@ -31,7 +31,7 @@ namespace GhostlineChess
         private ChessGame chessGame =
             new ChessGame();
 
-        // Pale Court colors.
+        // Hallowed Saints colors.
         private readonly Color paleCourtFill =
             Color.FromArgb(231, 215, 181);
 
@@ -41,7 +41,7 @@ namespace GhostlineChess
         private readonly Color paleCourtAmberOutline =
             Color.FromArgb(205, 150, 55);
 
-        // Shadow Court colors.
+        // Damned Souls colors.
         private readonly Color shadowCourtFill =
             Color.FromArgb(18, 17, 20);
 
@@ -671,7 +671,7 @@ namespace GhostlineChess
                 // A controlled spectral aura.
                 // This is narrower than the previous
                 // version so it does not wash out
-                // the amber Pale Court pieces.
+                // the amber Hallowed Saints pieces.
                 using Pen outerAura =
                     new Pen(
                         Color.FromArgb(
@@ -1072,7 +1072,7 @@ namespace GhostlineChess
         }
 
         /// <summary>
-        /// Draws a Pale Court piece using an
+        /// Draws a Hallowed Saints piece using an
         /// ivory body, crimson glow, and amber edge.
         /// </summary>
         private void DrawPaleCourtPiece(
@@ -1132,7 +1132,7 @@ namespace GhostlineChess
         }
 
         /// <summary>
-        /// Draws a Shadow Court piece using a
+        /// Draws a Damned Souls piece using a
         /// charcoal body and spectral blue glow.
         /// </summary>
         private void DrawShadowCourtPiece(
@@ -1541,8 +1541,8 @@ namespace GhostlineChess
             {
                 case GameResult.WhiteWon:
                     statusLabel.Text =
-                        "Checkmate — The Shadow Throne has fallen. " +
-                        "White wins!";
+                        "Checkmate — The Damned throne has fallen. " +
+                        "The Hallowed Saints win!";
 
                     statusLabel.ForeColor =
                         gothicCaptureSquare;
@@ -1550,8 +1550,8 @@ namespace GhostlineChess
 
                 case GameResult.BlackWon:
                     statusLabel.Text =
-                        "Checkmate — The Pale Throne has fallen. " +
-                        "Black wins!";
+                        "Checkmate — The Hallowed throne has fallen. " +
+                        "The Damned Souls win!";
 
                     statusLabel.ForeColor =
                         gothicCaptureSquare;
@@ -1612,11 +1612,15 @@ namespace GhostlineChess
                         string checkedCourt =
                             chessGame.Turn ==
                                 PieceColor.White
-                                ? "Pale"
-                                : "Shadow";
+                                ? "Hallowed Saints"
+                                : "Damned Souls";
+
+                        string factionTurn =
+                            GetFactionName(
+                                chessGame.Turn);
 
                         statusLabel.Text =
-                            $"{chessGame.Turn} to move — " +
+                            $"{factionTurn} to move — " +
                             $"The {checkedCourt} King is in check.";
                     }
                     else
@@ -1627,11 +1631,11 @@ namespace GhostlineChess
                         string atmosphere =
                             chessGame.Turn ==
                                 PieceColor.White
-                                ? "The Pale Court awakens."
-                                : "The Shadow Court advances.";
+                                ? "The Hallowed Saints awaken."
+                                : "The Damned Souls advance.";
 
                         statusLabel.Text =
-                            $"{chessGame.Turn} to move — " +
+                            $"{GetFactionName(chessGame.Turn)} to move — " +
                             atmosphere;
                     }
 
@@ -1644,6 +1648,18 @@ namespace GhostlineChess
 
                     break;
             }
+        }
+
+        /// <summary>
+        /// Returns the public faction name used by
+        /// the themed interface for a piece color.
+        /// </summary>
+        private static string GetFactionName(
+            PieceColor color)
+        {
+            return color == PieceColor.White
+                ? "Hallowed Saints"
+                : "Damned Souls";
         }
 
         /// <summary>

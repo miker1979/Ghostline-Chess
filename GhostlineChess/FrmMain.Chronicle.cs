@@ -130,7 +130,7 @@ namespace GhostlineChess
 
             // The graveyard controls extend slightly below
             // the board frame. Give the panel enough height
-            // to show the complete Shadow Court tray and its
+            // to show the complete Damned Souls tray and its
             // bottom padding without clipping.
             chroniclePanel.Size =
                 new Size(
