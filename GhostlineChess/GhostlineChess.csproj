@@ -34,6 +34,9 @@
     <None Remove="Assets\Pieces\shadow_pawn.png" />
     <None Remove="Assets\Pieces\shadow_queen.png" />
     <None Remove="Assets\Pieces\shadow_rook.png" />
+    <None Update="Assets\Audio\LICENSE-NOTICE.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
@@ -44,9 +47,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Audio\Pieces\*.wav">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\Audio\LICENSE-NOTICE.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Pieces\pale_bishop.png">
