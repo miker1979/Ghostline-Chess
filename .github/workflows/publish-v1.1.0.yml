@@ -117,7 +117,7 @@ jobs:
           $ErrorActionPreference = "Stop"
           $notesPath = Join-Path $env:RUNNER_TEMP "v1.1.0-release-notes.md"
           $notes = Get-Content .\docs\releases\v1.1.0.md -Raw
-          $notes += "`n`n## Package checksum`n`n``````text`nSHA-256: $env:RELEASE_SHA256`n`````` `n"
+          $notes += "`n`n## Package checksum`n`nSHA-256: $env:RELEASE_SHA256`n"
           Set-Content -Path $notesPath -Value $notes -Encoding utf8
 
           gh release create v1.1.0 `
