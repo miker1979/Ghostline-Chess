@@ -1,0 +1,116 @@
+name: Publish Ghostline Chess v1.2.0 after build
+
+on:
+  workflow_run:
+    workflows: [".NET Build"]
+    types: [completed]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: windows-latest
+
+    steps:
+      - name: Check out current main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Check whether release exists
+        id: release_check
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $ErrorActionPreference = "Continue"
+          gh release view v1.2.0 --repo "$env:GITHUB_REPOSITORY" *> $null
+          if ($LASTEXITCODE -eq 0) {
+            "exists=true" >> $env:GITHUB_OUTPUT
+            Write-Host "Release v1.2.0 already exists."
+          }
+          else {
+            "exists=false" >> $env:GITHUB_OUTPUT
+          }
+          exit 0
+
+      - name: Set up .NET 10
+        if: steps.release_check.outputs.exists != 'true'
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Publish self-contained Windows x64 package
+        if: steps.release_check.outputs.exists != 'true'
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = "Stop"
+          $version = "1.2.0"
+          $stage = Join-Path $env:RUNNER_TEMP "GhostlineChess-v$version-win-x64"
+          $zip = Join-Path $env:GITHUB_WORKSPACE "GhostlineChess-v$version-win-x64.zip"
+
+          Remove-Item $stage -Recurse -Force -ErrorAction SilentlyContinue
+          Remove-Item $zip -Force -ErrorAction SilentlyContinue
+
+          dotnet publish .\GhostlineChess\GhostlineChess.csproj `
+            --configuration Release `
+            --runtime win-x64 `
+            --self-contained true `
+            --output $stage `
+            /p:PublishSingleFile=false `
+            /p:PublishTrimmed=false `
+            /p:DebugType=None `
+            /p:DebugSymbols=false
+
+          if ($LASTEXITCODE -ne 0) { throw "dotnet publish failed." }
+
+          $exe = Join-Path $stage "GhostlineChess.exe"
+          $suite = Join-Path $stage "Assets\Audio\Ghostline_Background_Suite.mp3"
+          $pieceFolder = Join-Path $stage "Assets\Audio\Pieces"
+          $license = Join-Path $stage "Assets\Audio\LICENSE-NOTICE.txt"
+
+          if (-not (Test-Path $exe)) { throw "Published executable was not found." }
+          if (-not (Test-Path $suite)) { throw "Background audio suite was not included." }
+          if (-not (Test-Path $license)) { throw "Audio license notice was not included." }
+
+          $pieceSounds = @(Get-ChildItem $pieceFolder -Filter *.wav -File)
+          if ($pieceSounds.Count -ne 24) {
+            throw "Expected 24 piece audio cues but found $($pieceSounds.Count)."
+          }
+
+          Copy-Item .\README.md (Join-Path $stage "README.md")
+          Copy-Item .\docs\releases\v1.2.0.md (Join-Path $stage "RELEASE-NOTES.md")
+          Compress-Archive -Path "$stage\*" -DestinationPath $zip -CompressionLevel Optimal
+
+          $hash = (Get-FileHash $zip -Algorithm SHA256).Hash.ToLowerInvariant()
+          "RELEASE_ZIP=$zip" >> $env:GITHUB_ENV
+          "RELEASE_SHA256=$hash" >> $env:GITHUB_ENV
+
+      - name: Upload build artifact
+        if: steps.release_check.outputs.exists != 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: GhostlineChess-v1.2.0-win-x64
+          path: GhostlineChess-v1.2.0-win-x64.zip
+          if-no-files-found: error
+
+      - name: Publish GitHub prerelease
+        if: steps.release_check.outputs.exists != 'true'
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $ErrorActionPreference = "Stop"
+          $notesPath = Join-Path $env:RUNNER_TEMP "v1.2.0-release-notes.md"
+          $notes = Get-Content .\docs\releases\v1.2.0.md -Raw
+          $notes += "`n`n## Package checksum`n`nSHA-256: $env:RELEASE_SHA256`n"
+          Set-Content -Path $notesPath -Value $notes -Encoding utf8
+
+          gh release create v1.2.0 `
+            "$env:RELEASE_ZIP" `
+            --repo "$env:GITHUB_REPOSITORY" `
+            --target main `
+            --title "Ghostline Chess v1.2.0 — Tactical AI Milestone" `
+            --notes-file "$notesPath" `
+            --prerelease
