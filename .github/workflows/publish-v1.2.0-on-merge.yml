@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   release:
-    if: github.event.pull_request.merged == true && github.event.pull_request.head.ref == 'release-v1.2.0-trigger'
+    if: github.event.pull_request.merged == true && github.event.pull_request.head.ref == 'release-trigger-august-6'
     runs-on: windows-latest
 
     steps:
