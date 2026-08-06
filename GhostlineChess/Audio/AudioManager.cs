@@ -23,6 +23,12 @@ namespace GhostlineChess.Audio
                     new Dictionary<
                         VolumeSampleProvider,
                         float>();
+        private readonly
+            Dictionary<ISampleProvider, AudioFileReader>
+                effectReaders =
+                    new Dictionary<
+                        ISampleProvider,
+                        AudioFileReader>();
 
         private VolumeSampleProvider? ambientVolume;
         private int volume = 55;
@@ -65,6 +71,9 @@ namespace GhostlineChess.Audio
                 {
                     ReadFully = true
                 };
+
+            newMixer.MixerInputEnded +=
+                Mixer_MixerInputEnded;
 
             WaveOutEvent newOutputDevice =
                 new WaveOutEvent
@@ -256,8 +265,63 @@ namespace GhostlineChess.Audio
                     effectVolume,
                     safeRelativeVolume);
 
+                effectReaders.Add(
+                    effectVolume,
+                    reader);
+
                 mixer.AddMixerInput(effectVolume);
             }
+        }
+
+        /// <summary>
+        /// Releases a completed one-shot effect as soon as
+        /// the mixer reports that the input has ended.
+        /// </summary>
+        private void Mixer_MixerInputEnded(
+            object? sender,
+            SampleProviderEventArgs e)
+        {
+            ISampleProvider completedInput =
+                e.SampleProvider;
+
+            ThreadPool.QueueUserWorkItem(
+                _ => CleanupCompletedEffect(
+                    completedInput));
+        }
+
+        /// <summary>
+        /// Removes bookkeeping for a completed effect and
+        /// disposes its reader away from the audio callback.
+        /// </summary>
+        private void CleanupCompletedEffect(
+            ISampleProvider completedInput)
+        {
+            AudioFileReader? completedReader = null;
+
+            lock (audioLock)
+            {
+                if (disposed)
+                {
+                    return;
+                }
+
+                if (completedInput is
+                    VolumeSampleProvider completedVolume)
+                {
+                    effectVolumes.Remove(
+                        completedVolume);
+                }
+
+                if (effectReaders.Remove(
+                        completedInput,
+                        out AudioFileReader? reader))
+                {
+                    readers.Remove(reader);
+                    completedReader = reader;
+                }
+            }
+
+            completedReader?.Dispose();
         }
 
         /// <summary>
@@ -284,6 +348,7 @@ namespace GhostlineChess.Audio
 
                 readers.Clear();
                 effectVolumes.Clear();
+                effectReaders.Clear();
                 mixer = null;
                 outputDevice = null;
                 initializing = false;
