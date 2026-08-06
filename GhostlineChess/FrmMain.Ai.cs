@@ -134,11 +134,25 @@ namespace GhostlineChess
                     return;
                 }
 
-                ChessMove? move =
-                    computerPlayer.ChooseMove(
+                string positionFen =
+                    FenService.ExportFen(
                         chessGame);
 
-                if (move == null)
+                ChessMove? move =
+                    await Task.Run(
+                        () =>
+                            computerPlayer.ChooseMove(
+                                positionFen,
+                                aiColor,
+                                searchDepth: 2));
+
+                if (move == null ||
+                    !aiOpponentEnabled ||
+                    chessGame.Result !=
+                        GameResult.InProgress ||
+                    chessGame.Turn != aiColor ||
+                    FenService.ExportFen(chessGame) !=
+                        positionFen)
                 {
                     return;
                 }
