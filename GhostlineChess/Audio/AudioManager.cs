@@ -32,6 +32,7 @@ namespace GhostlineChess.Audio
 
         private VolumeSampleProvider? ambientVolume;
         private int volume = 55;
+        private float ambienceIntensity = 1F;
         private bool muted;
         private bool initializing;
         private bool disposed;
@@ -165,8 +166,39 @@ namespace GhostlineChess.Audio
             }
         }
 
+        /// <summary>
+        /// Gets or sets a restrained multiplier for the
+        /// looping ambient bed as game tension changes.
+        /// </summary>
+        public float AmbienceIntensity
+        {
+            get => ambienceIntensity;
+            set
+            {
+                lock (audioLock)
+                {
+                    ambienceIntensity =
+                        Math.Clamp(
+                            value,
+                            0.70F,
+                            1.35F);
+
+                    if (ambientVolume != null)
+                    {
+                        ambientVolume.Volume =
+                            AmbientVolumeScale;
+                    }
+                }
+            }
+        }
+
         private float AmbientVolumeScale =>
-            volume / 100F * 0.50F;
+            Math.Clamp(
+                volume / 100F *
+                0.50F *
+                ambienceIntensity,
+                0F,
+                1F);
 
         private float EffectVolumeScale =>
             volume / 100F;
