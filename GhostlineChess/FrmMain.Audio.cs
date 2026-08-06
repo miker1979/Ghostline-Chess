@@ -47,6 +47,15 @@ namespace GhostlineChess
 
         private int lastEnvironmentalSoundIndex = -1;
         private bool hasPlayedEnvironmentalSound;
+        private AudioTensionLevel currentAudioTension =
+            AudioTensionLevel.Dormant;
+
+        private enum AudioTensionLevel
+        {
+            Dormant,
+            Ominous,
+            Doom
+        }
 
         /// <summary>
         /// Adds volume and mute controls below the
@@ -126,10 +135,21 @@ namespace GhostlineChess
             audioManager.Volume =
                 volumeTrackBar.Value;
 
+            UpdateAudioTensionState();
+
             ScheduleNextEnvironmentalSound();
 
             environmentalSoundTimer.Tick +=
                 EnvironmentalSoundTimer_Tick;
+
+            newGameButton.Click +=
+                AudioBoardStateChanged;
+
+            loadFenButton.Click +=
+                AudioBoardStateChanged;
+
+            startingPositionButton.Click +=
+                AudioBoardStateChanged;
 
             Shown += FrmMain_Shown;
         }
@@ -175,6 +195,8 @@ namespace GhostlineChess
             JournalMoveContext completedMove,
             PieceType? promotionType)
         {
+            UpdateAudioTensionState();
+
             if (chessGame.Result ==
                     GameResult.WhiteWon ||
                 chessGame.Result ==
@@ -324,25 +346,102 @@ namespace GhostlineChess
         }
 
         /// <summary>
+        /// Re-evaluates audio tension after a board-reset
+        /// control has finished changing the current game.
+        /// </summary>
+        private void AudioBoardStateChanged(
+            object? sender,
+            EventArgs e)
+        {
+            UpdateAudioTensionState(
+                forceReschedule: true);
+        }
+
+        /// <summary>
+        /// Raises atmosphere intensity as material leaves
+        /// the board, using captured pieces rather than a
+        /// fixed move number to measure the battle's danger.
+        /// </summary>
+        private void UpdateAudioTensionState(
+            bool forceReschedule = false)
+        {
+            int remainingPieces = 0;
+
+            for (int row = 0; row < 8; row++)
+            {
+                for (int column = 0; column < 8; column++)
+                {
+                    if (!chessGame.Board.Spots[
+                            row,
+                            column].Piece.IsEmpty)
+                    {
+                        remainingPieces++;
+                    }
+                }
+            }
+
+            int capturedPieces =
+                Math.Max(
+                    0,
+                    32 - remainingPieces);
+
+            AudioTensionLevel nextTension =
+                capturedPieces >= 14
+                    ? AudioTensionLevel.Doom
+                    : capturedPieces >= 6
+                        ? AudioTensionLevel.Ominous
+                        : AudioTensionLevel.Dormant;
+
+            bool tensionChanged =
+                nextTension != currentAudioTension;
+
+            currentAudioTension =
+                nextTension;
+
+            audioManager.AmbienceIntensity =
+                currentAudioTension switch
+                {
+                    AudioTensionLevel.Ominous => 1.08F,
+                    AudioTensionLevel.Doom => 1.18F,
+                    _ => 1F
+                };
+
+            if ((tensionChanged || forceReschedule) &&
+                environmentalSoundTimer.Enabled)
+            {
+                ScheduleNextEnvironmentalSound();
+            }
+        }
+
+        /// <summary>
         /// Schedules an earlier first creak, followed by
         /// wider gaps that do not form a predictable rhythm.
         /// </summary>
         private void ScheduleNextEnvironmentalSound()
         {
-            int minimumDelay =
-                hasPlayedEnvironmentalSound
-                    ? 55_000
-                    : 30_000;
+            (int Minimum, int Maximum) delayRange =
+                currentAudioTension switch
+                {
+                    AudioTensionLevel.Ominous =>
+                        hasPlayedEnvironmentalSound
+                            ? (35_000, 90_001)
+                            : (20_000, 50_001),
 
-            int maximumDelay =
-                hasPlayedEnvironmentalSound
-                    ? 145_001
-                    : 75_001;
+                    AudioTensionLevel.Doom =>
+                        hasPlayedEnvironmentalSound
+                            ? (18_000, 45_001)
+                            : (12_000, 30_001),
+
+                    _ =>
+                        hasPlayedEnvironmentalSound
+                            ? (55_000, 145_001)
+                            : (30_000, 75_001)
+                };
 
             environmentalSoundTimer.Interval =
                 audioRandom.Next(
-                    minimumDelay,
-                    maximumDelay);
+                    delayRange.Minimum,
+                    delayRange.Maximum);
         }
 
         /// <summary>
