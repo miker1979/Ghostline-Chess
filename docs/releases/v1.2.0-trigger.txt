@@ -1,0 +1,1 @@
+Release trigger for the Ghostline Chess v1.2.0 tactical AI Windows package.
