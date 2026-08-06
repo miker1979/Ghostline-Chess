@@ -1223,7 +1223,20 @@ namespace GhostlineChess
             if (actionCompleted &&
                 chessGame.PromotionPending)
             {
-                ShowPromotionDialog();
+                if (aiMovePending &&
+                    chessGame.Turn == aiColor)
+                {
+                    chessGame.CompletePromotion(
+                        PieceType.Queen,
+                        out string promotionMessage);
+
+                    RefreshBoard(
+                        promotionMessage);
+                }
+                else
+                {
+                    ShowPromotionDialog();
+                }
             }
         }
 

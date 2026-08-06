@@ -36,6 +36,7 @@ namespace GhostlineChess
             BuildChroniclePanel();
             ConnectChronicleEvents();
             InitializeAudioExperience();
+            InitializeAiExperience();
         }
 
         /// <summary>
@@ -174,6 +175,8 @@ namespace GhostlineChess
                 promotionType);
 
             RefreshChroniclePanel();
+
+            ScheduleAiMoveIfNeeded();
         }
 
         /// <summary>

@@ -211,6 +211,55 @@ namespace GhostlineChess.GameLogic
         }
 
         /// <summary>
+        /// Returns every fully legal move available to the
+        /// side whose turn it currently is. This keeps move
+        /// suppliers such as AI and networking outside the
+        /// rules engine while preserving one source of truth.
+        /// </summary>
+        public IReadOnlyList<ChessMove>
+            GetLegalMovesForTurn()
+        {
+            List<ChessMove> legalMoves =
+                new List<ChessMove>();
+
+            if (PromotionPending ||
+                Result != GameResult.InProgress)
+            {
+                return legalMoves;
+            }
+
+            for (int row = 0; row < 8; row++)
+            {
+                for (int column = 0;
+                     column < 8;
+                     column++)
+                {
+                    Spot startingSpot =
+                        Board.Spots[row, column];
+
+                    if (startingSpot.Piece.IsEmpty ||
+                        startingSpot.Piece.Color != Turn)
+                    {
+                        continue;
+                    }
+
+                    foreach (Spot destination in
+                             GetLegalMoves(startingSpot))
+                    {
+                        legalMoves.Add(
+                            new ChessMove(
+                                startingSpot.Row,
+                                startingSpot.Column,
+                                destination.Row,
+                                destination.Column));
+                    }
+                }
+            }
+
+            return legalMoves;
+        }
+
+        /// <summary>
         /// Returns all fully legal destination squares
         /// for a particular starting square.
         /// </summary>
