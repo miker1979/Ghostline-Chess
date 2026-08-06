@@ -1,4 +1,4 @@
-# Triggered after initial workflow registration
+# Triggered through a merged pull request
 name: Publish Ghostline Chess v1.2.0
 
 on:
