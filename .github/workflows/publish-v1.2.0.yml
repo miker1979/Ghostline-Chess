@@ -1,3 +1,4 @@
+# Triggered after initial workflow registration
 name: Publish Ghostline Chess v1.2.0
 
 on:
